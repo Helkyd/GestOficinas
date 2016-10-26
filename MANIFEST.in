@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include gestoficinas *.css
+recursive-include gestoficinas *.csv
+recursive-include gestoficinas *.html
+recursive-include gestoficinas *.ico
+recursive-include gestoficinas *.js
+recursive-include gestoficinas *.json
+recursive-include gestoficinas *.md
+recursive-include gestoficinas *.png
+recursive-include gestoficinas *.py
+recursive-include gestoficinas *.svg
+recursive-include gestoficinas *.txt
+recursive-exclude gestoficinas *.pyc
