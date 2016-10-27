@@ -3,7 +3,11 @@
 # See license.txt
 from __future__ import unicode_literals
 
-
+import frappe
+import unittest
+from frappe import _
+from frappe.model.document import Document
+from frappe.model.naming import make_autoname
 
 # test_records = frappe.get_test_records('Veiculos')
 
