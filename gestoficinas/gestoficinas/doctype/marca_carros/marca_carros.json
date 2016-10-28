@@ -71,11 +71,11 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-10-27 00:52:26.204075", 
+ "modified": "2016-10-27 21:46:48.928704", 
  "modified_by": "Administrator", 
  "module": "Gestoficinas", 
  "name": "Marca Carros", 
- "name_case": "", 
+ "name_case": "Title Case", 
  "owner": "Administrator", 
  "permissions": [
   {

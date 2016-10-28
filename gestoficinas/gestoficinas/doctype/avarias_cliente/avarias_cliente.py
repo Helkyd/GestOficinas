@@ -4,17 +4,7 @@
 
 from __future__ import unicode_literals
 import frappe
-from frappe import _
 from frappe.model.document import Document
-from frappe.model.naming import make_autoname
 
-class Veiculos(Document):
-
-
-	def autoname(self):
-		self.name = self.matricula
-
-		#Deve atribuir Imagem de acordo a Marca do Carro
-		#
-	
-
+class Avarias_Cliente(Document):
+	pass

@@ -28,33 +28,6 @@ frappe.ui.form.on('Veiculos','marca',function(frm,cdt,cdn){
 
 });
 
-frappe.ui.form.on('Veiculos','veiculo_kms',function(frm,cdt,cdn){
-	//accept only numbers
-
-});
-
-
-frappe.ui.form.on('Veiculos','veiculo_ano',function(frm,cdt,cdn){
-	//accept only numbers
-
-});
-
-frappe.ui.form.on('Veiculos','veiculo_cilindrada',function(frm,cdt,cdn){
-	//accept only numbers
-
-});
-
-frappe.ui.form.on('Veiculos','veiculo_potencia',function(frm,cdt,cdn){
-	//accept only numbers
-
-});
-
-
-frappe.ui.form.on('Veiculos','veiculo_cor',function(frm,cdt,cdn){
-	//accept only Letras
-
-});
-
 
 
 var marcas_ = function(frm,cdt,cdn){

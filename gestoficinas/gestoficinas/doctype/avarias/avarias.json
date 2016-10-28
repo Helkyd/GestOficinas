@@ -46,11 +46,11 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-10-27 00:28:01.916958", 
+ "modified": "2016-10-27 21:46:57.679978", 
  "modified_by": "Administrator", 
  "module": "Gestoficinas", 
  "name": "Avarias", 
- "name_case": "", 
+ "name_case": "Title Case", 
  "owner": "Administrator", 
  "permissions": [
   {
