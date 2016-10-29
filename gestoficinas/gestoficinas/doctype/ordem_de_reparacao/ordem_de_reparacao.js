@@ -19,6 +19,54 @@ frappe.ui.form.on('Ordem de Reparacao', {
 frappe.ui.form.on('Ordem de Reparacao', {
 	refresh: function(frm) {
 
+		if (cur_frm.doc.or_status == 'Em Curso'){
+			cur_frm.toggle_enable("or_operador",false)
+			cur_frm.toggle_enable("or_marca_veiculo",false)
+			cur_frm.toggle_enable("or_modelo_veiculo",false)
+			cur_frm.toggle_enable("or_numero_chassi",false)
+			cur_frm.toggle_enable("or_numero_motor",false)
+			cur_frm.toggle_enable("or_ano_veiculo",false)
+			cur_frm.toggle_enable("or_nome_cliente",false)
+			cur_frm.toggle_enable("or_client_number",false)
+			cur_frm.toggle_enable("or_email_cliente",false)
+			cur_frm.toggle_enable("or_matricula",false)
+			cur_frm.toggle_enable("or_kms_entrada",false)
+			cur_frm.toggle_enable("or_date",false)
+			cur_frm.toggle_enable("or_previsao_entrega",false)
+			cur_frm.toggle_enable("or_nivel_combustivel",false)
+
+			//Acessorios
+			cur_frm.toggle_enable("or_macaco",false)
+			cur_frm.toggle_enable("or_chave_rodas",false)
+			cur_frm.toggle_enable("or_triangulo",false)
+			cur_frm.toggle_enable("or_extintor",false)
+			cur_frm.toggle_enable("or_ferramentas",false)
+			cur_frm.toggle_enable("or_pneu_socorro",false)
+			cur_frm.toggle_enable("or_porca_seguranca",false)
+
+			//Interior e Exterior
+			cur_frm.toggle_enable("or_radio",false)
+			cur_frm.toggle_enable("or_drive_cd",false)
+			cur_frm.toggle_enable("or_esqueiro",false)
+			cur_frm.toggle_enable("retrovisor",false)
+			cur_frm.toggle_enable("or_tapetes",false)
+			cur_frm.toggle_enable("or_antena",false)
+			cur_frm.toggle_enable("or_retrovisor_esquerdo",false)
+			cur_frm.toggle_enable("or_retrovisor_direito",false)
+			cur_frm.toggle_enable("or_tampao_combustivel",false)
+			cur_frm.toggle_enable("or_limpa_parabrisas",false)
+			cur_frm.toggle_enable("or_limpa_parabrisas_traseiro",false)
+
+
+			cur_frm.toggle_enable("or_avarias_corrigir",false)
+			cur_frm.toggle_enable("or_obs_cliente",false)
+
+			cur_frm.toggle_enable("numero_ordem",false)
+			frm.set_df_property("or_status","options","Em Curso\nFechada")
+		}
+
+
+
 	}
 });
 
@@ -30,6 +78,14 @@ frappe.ui.form.on('Ordem de Reparacao','or_nome_cliente',function(frm,cdt,cdn){
 		cur_frm.refresh_fields('or_client_number');
 	}
 
+	cur_frm.fields_dict['or_matricula'].get_query = function(doc){
+		return{
+			filters:{
+				"veiculo_cliente":cur_frm.doc.or_nome_cliente,
+			},
+				
+		}
+	}
 
 });
 

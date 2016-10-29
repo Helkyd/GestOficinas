@@ -6,7 +6,6 @@ ordens= cur_frm.call({method:"get_avarias_clientes",args:{"Parent":""}})
 
 frappe.ui.form.on('Folha de Obras', {
 	onload: function(frm) {
-	
 
 	}
 		
@@ -21,6 +20,21 @@ frappe.ui.form.on('Folha de Obras', {
 		cur_frm.toggle_enable("data_previsao_saida",false)
 		cur_frm.toggle_enable("obs_cliente",false)
 
+		cur_frm.fields_dict['ordem_reparacao'].get_query = function(doc){
+			return{
+				filters:{
+					"or_status":"Aberta",
+				},
+				
+			}
+		}	
+
+		if (cur_frm.doc.fo_status == 'Em Curso'){
+			cur_frm.toggle_enable("ordem_reparacao",false)
+			frm.set_df_property("fo_status","options","Em Curso\nFechada")
+		}
+
+
 
 	}
 });
@@ -32,52 +46,22 @@ frappe.ui.form.on('Folha de Obras','ordem_reparacao',function(frm,cdt,cdn){
 	if (cur_frm.doc.ordem_reparacao){
 		reparar_('Ordem de Reparacao',cur_frm.doc.ordem_reparacao)
 
-//		cur_frm.add_fetch("ordem_reparacao","avcliente_descricao","avarias_cliente")
-//		pedidocliente_('Avarias_Cliente',cur_frm.doc.ordem_reparacao)
-		cur_frm.doc.avarias_cliente =""
+		//Enters Avarias reported by client to serve as Tasks
+
 		if (ordens != undefined){
 			for (var x = 0; x < ordens.responseJSON.message.length;x++){
 				if (ordens.responseJSON.message[x].Parent == cur_frm.doc.ordem_reparacao){
-					if (cur_frm.doc.avarias_cliente == undefined || cur_frm.doc.avarias_cliente == ""){
-						cur_frm.doc.avarias_cliente = ordens.responseJSON.message[x].avcliente_descricao + '\n'
-					}else{
-						cur_frm.doc.avarias_cliente = ordens.responseJSON.message[x].avcliente_descricao + '\n' + cur_frm.doc.avarias_cliente
-					}
+					av = frm.add_child("avarias_cliente")
+					av.avcliente_descricao = ordens.responseJSON.message[x].avcliente_descricao
+
 				}
 			}
+			frm.refresh_field("avarias_cliente")
+			//cur_frm.doc.avarias_cliente = cur_frm.doc.avarias_cliente + '\n'
 
 		}
 
-		//Enters Avarias reported by client to serve as Tasks
-
-//		cur_frm.add_fetch("ordem_reparacao","avarias_cliente","avcliente_descricao")
-
-//		cur_frm.fields_dict['avarias_cliente'].grid.get_field('avcliente_descricao').set_query = function(doc, cdt, cdn) {
-//			return {
-//				filters:[
-//					['Avarias_Cliente', 'parent', '=', cur_frm.doc.ordem_reparacao]
-//					['parent', '=', cur_frm.doc.ordem_reparacao]
-//				]
-//			}
-//		}
-
-//		grid_row = cur_frm.fields_dict['avarias_cliente'].grid.grid_rows_by_docname[child.name],
-//		grid_row = cur_frm.fields_dict['avarias_cliente'].grid.get_field('avcliente_descricao'),
-//		field = frappe.utils.filter_dict(grid_row.docfields, {fieldname: "avcliente_descricao"})[0];
-
-//		grid_row.refresh_field("avarias_cliente");
-
-
-//		cur_frm.fields_dict['avarias_cliente'].grid.get_field('avcliente_descricao').set_query = function(doc, cdt, cdn) {
-//		cur_frm.set_query("avcliente_descricao", "avarias_cliente", function (frm) {
-//			return {
-//			    query: "gestoficinas.gestoficinas.doctype.api.get_avaria_cliente",
-//			    filters: {'parent': cur_frm.doc.ordem_reparacao}
-//			}
-//		});
-
 		cur_frm.refresh_fields('avarias_cliente');
-
 		cur_frm.refresh_fields('nome_cliente');
 	}
 
@@ -88,8 +72,20 @@ frappe.ui.form.on('Folha de Obras','ordem_reparacao',function(frm,cdt,cdn){
 frappe.ui.form.on('Folha de Obras','fo_status',function(frm,cdt,cdn){
 	//When changed to EM CURSO ... copies the info to Project and create the tasks.
 	if (cur_frm.doc.fo_status == 'Em Curso'){
-		Alert("As Avarias do Cliente serao criadas e incluidas como um Projecto!!!\nDevera a folha depois ser enviar ou assignada ao Chefe de Oficina ou Area da Oficina para dar seguimento")
+		if (frm.docname.substring(0,3)=="New" || frm.docname.substring(0,3)=="Nov"){
+
+
+
+			alert("Nao se esqueca de salvar primeiro o registo antes de mudar o Status para Em Curso\nDepois de Salvo podera mudar o status e criar o Projecto com as tarefas")
+//			cur_frm.set_value(cdt,cdn,'fo_status',"Aberta")
+			cur_frm.doc.fo_status = "Aberta"
+//			cur_frm.fields_dict["fo_status"].set_value = "Aberta"
+//			cur_frm.refresh_fields('fo_status')
+		}else{
+			show_alert("As Avarias do Cliente serao criadas e incluidas como um Projecto!!!\nDevera a folha depois ser enviar ou assignada ao Chefe de Oficina ou Area da Oficina para dar seguimento",2)
+		}
 	}
+
 
 
 });
