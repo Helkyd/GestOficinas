@@ -85,6 +85,15 @@ frappe.ui.form.on('Folha de Obras','ordem_reparacao',function(frm,cdt,cdn){
 });
 
 
+frappe.ui.form.on('Folha de Obras','fo_status',function(frm,cdt,cdn){
+	//When changed to EM CURSO ... copies the info to Project and create the tasks.
+	if (cur_frm.doc.fo_status == 'Em Curso'){
+		alert("As Avarias do Cliente serao criadas e incluidas como um Projecto!!!\nDevera a folha depois ser enviar ou assignada ao Chefe de Oficina ou Area da Oficina para dar seguimento")
+	}
+
+
+});
+
 frappe.ui.form.on("Avarias_Cliente","avarias_cliente",function(frm,cdt,cdn){
 
 
@@ -93,6 +102,11 @@ frappe.ui.form.on("Avarias_Cliente","avarias_cliente",function(frm,cdt,cdn){
 
 
 });
+
+
+
+
+
 
 var reparar_ = function(frm,cdt,cdn){
 	frappe.model.with_doc(frm, cdt, function() { 
