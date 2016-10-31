@@ -108,6 +108,10 @@ class FolhadeObras(Document):
 					frappe.msgprint('{0}{1}'.format(unicode(palavratmp), " Criada como tarefa no Projecto ", self.numero_obra))
 			
 
+@frappe.whitelist()
+def get_projecto_status(prj):
+	print frappe.db.sql("""select name, status from `tabProject` WHERE status = 'Completed' and name =%s """,(prj), as_dict=False)
+	return frappe.db.sql("""select status from `tabProject` WHERE name =%s """,(prj), as_dict=False)
 
 @frappe.whitelist()
 def get_avaria_cliente(frm,cdt):

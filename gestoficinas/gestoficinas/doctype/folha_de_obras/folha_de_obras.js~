@@ -3,6 +3,7 @@
 
 var ordem
 ordens= cur_frm.call({method:"get_avarias_clientes",args:{"Parent":""}})
+prj= cur_frm.call({method:"get_projecto_status",args:{"prj":cur_frm.doc.numero_obra}})
 
 frappe.ui.form.on('Folha de Obras', {
 	onload: function(frm) {
@@ -32,7 +33,11 @@ frappe.ui.form.on('Folha de Obras', {
 		if (cur_frm.doc.fo_status == 'Em Curso'){
 			cur_frm.toggle_enable("ordem_reparacao",false)
 			frm.set_df_property("fo_status","options","Em Curso\nFechada")
+		}else if (cur_frm.doc.fo_status == 'Aberta'){
+			cur_frm.toggle_enable("ordem_reparacao",false)
+
 		}
+
 
 
 
@@ -73,16 +78,20 @@ frappe.ui.form.on('Folha de Obras','fo_status',function(frm,cdt,cdn){
 	//When changed to EM CURSO ... copies the info to Project and create the tasks.
 	if (cur_frm.doc.fo_status == 'Em Curso'){
 		if (frm.docname.substring(0,3)=="New" || frm.docname.substring(0,3)=="Nov"){
-
-
-
 			alert("Nao se esqueca de salvar primeiro o registo antes de mudar o Status para Em Curso\nDepois de Salvo podera mudar o status e criar o Projecto com as tarefas")
-//			cur_frm.set_value(cdt,cdn,'fo_status',"Aberta")
 			cur_frm.doc.fo_status = "Aberta"
-//			cur_frm.fields_dict["fo_status"].set_value = "Aberta"
-//			cur_frm.refresh_fields('fo_status')
 		}else{
 			show_alert("As Avarias do Cliente serao criadas e incluidas como um Projecto!!!\nDevera a folha depois ser enviar ou assignada ao Chefe de Oficina ou Area da Oficina para dar seguimento",2)
+		}
+	}else if (cur_frm.doc.fo_status == 'Fechada'){
+		//Verifica se o Projecto ja esta completed.
+		if (prj == "Completed"){
+			//Pode fechar a Obra ...
+		}else{
+			//Ooooopppssss still oopen
+			alert("O Projecto " + cur_frm.doc.numero_obra + " ainda nao esta fechado ou concluido.\nPor favor rever se as tarefas alocadas estao completadas.")
+			cur_frm.doc.fo_status = "Em Curso"
+
 		}
 	}
 
