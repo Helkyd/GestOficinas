@@ -32,6 +32,7 @@ class FolhadeObras(Document):
 				"priority": "Medium",
 				"status": "Open",
 				"expected_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1) ,
+				"expected_end_date": self.data_previsao_saida ,
 				"is_active": "Yes",
 				"project_type": "Internal",
 				"customer": self.nome_cliente
@@ -49,7 +50,8 @@ class FolhadeObras(Document):
 						"subject": num_avarias.avcliente_descricao,
 						"status": "Open",
 						"description": "Tarefa adicionada pelo Sistema",
-						"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1)
+						"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
+						"exp_end_date": self.data_previsao_saida 
 
 				})
 				tarefas.insert()
@@ -62,7 +64,8 @@ class FolhadeObras(Document):
 				"subject": self.obs_cliente,
 				"status": "Open",
 				"description": self.obs_cliente,
-				"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1)
+				"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
+				"exp_end_date": self.data_previsao_saida 
 
 			})
 			tarefas.insert()

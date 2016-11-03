@@ -32,6 +32,7 @@ class FolhadeObras(Document):
 				"priority": "Medium",
 				"status": "Open",
 				"expected_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1) ,
+				"expected_end_date": self.data_previsao_saida ,
 				"is_active": "Yes",
 				"project_type": "Internal",
 				"customer": self.nome_cliente
@@ -111,7 +112,7 @@ class FolhadeObras(Document):
 @frappe.whitelist()
 def get_projecto_status(prj):
 	print frappe.db.sql("""select name, status from `tabProject` WHERE status = 'Completed' and name =%s """,(prj), as_dict=False)
-	return frappe.db.sql("""select status from `tabProject` WHERE status = 'Completed' and name =%s """,(prj), as_dict=False)
+	return frappe.db.sql("""select status from `tabProject` WHERE name =%s """,(prj), as_dict=False)
 
 @frappe.whitelist()
 def get_avaria_cliente(frm,cdt):
