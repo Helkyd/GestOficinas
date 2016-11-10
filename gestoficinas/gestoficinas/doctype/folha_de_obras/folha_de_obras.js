@@ -2,12 +2,15 @@
 // For license information, please see license.txt
 
 var ordem
+var prj
 ordens= cur_frm.call({method:"get_avarias_clientes",args:{"Parent":""}})
-prj= cur_frm.call({method:"get_projecto_status",args:{"prj":cur_frm.doc.numero_obra}})
+
 
 frappe.ui.form.on('Folha de Obras', {
 	onload: function(frm) {
-
+		if (cur_frm.doc.numero_obra != undefined){
+			prj= cur_frm.call({method:"get_projecto_status",args:{"prj":cur_frm.doc.numero_obra}})
+		}
 	}
 		
 });
@@ -34,7 +37,11 @@ frappe.ui.form.on('Folha de Obras', {
 			cur_frm.toggle_enable("ordem_reparacao",false)
 			frm.set_df_property("fo_status","options","Em Curso\nFechada")
 		}else if (cur_frm.doc.fo_status == 'Aberta'){
+			if (cur_frm.docname.substring(0,3)=="New" || cur_frm.docname.substring(0,3)=="Nov"){
+				cur_frm.toggle_enable("ordem_reparacao",true)
+			}else{
 			cur_frm.toggle_enable("ordem_reparacao",false)
+			}
 
 		}
 

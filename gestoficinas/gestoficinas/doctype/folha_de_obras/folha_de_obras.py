@@ -123,6 +123,7 @@ def get_avaria_cliente(frm,cdt):
 
 @frappe.whitelist()
 def get_avarias_clientes():
+	print "GET_AVARIAS_CLIENTE"
 	print frappe.get_all("Avarias_Cliente",filters={'Parent':['!=','']},fields=['Parent','avcliente_descricao'])
 	return frappe.get_all("Avarias_Cliente",filters={'Parent':['!=','']},fields=['Parent','avcliente_descricao'])
 
