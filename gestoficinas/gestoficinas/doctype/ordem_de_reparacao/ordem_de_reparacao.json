@@ -1484,7 +1484,7 @@
    "read_only": 0, 
    "remember_last_selected_value": 0, 
    "report_hide": 0, 
-   "reqd": 0, 
+   "reqd": 1, 
    "search_index": 0, 
    "set_only_once": 0, 
    "unique": 0
@@ -1528,7 +1528,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-11-19 20:10:06.881179", 
+ "modified": "2016-11-21 18:59:31.877852", 
  "modified_by": "Administrator", 
  "module": "Gestoficinas", 
  "name": "Ordem de Reparacao", 

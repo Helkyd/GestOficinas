@@ -37,7 +37,7 @@ frappe.ui.form.on('Folha de Obras', {
 			cur_frm.toggle_enable("ordem_reparacao",false)
 			frm.set_df_property("fo_status","options","Em Curso\nFechada")
 		}else if (cur_frm.doc.fo_status == 'Aberta'){
-			if ((cur_frm.docname.substring(0,3)=="New" || cur_frm.docname.substring(0,3)=="Nov"){
+			if (cur_frm.docname.substring(0,3)=="New" || cur_frm.docname.substring(0,3)=="Nov"){
 				cur_frm.toggle_enable("ordem_reparacao",true)
 			}else{
 			cur_frm.toggle_enable("ordem_reparacao",false)
@@ -45,6 +45,14 @@ frappe.ui.form.on('Folha de Obras', {
 
 		}
 
+		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal){
+			
+			frm.add_custom_button(__("Projecto"), function() {
+				frappe.route_options = {"project_name": cur_frm.doc.name}
+				frappe.set_route("List", "Projects");
+			}, "icon-list", true);
+
+		}
 
 
 

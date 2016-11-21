@@ -26,50 +26,51 @@ class FolhadeObras(Document):
 
 	def criar_projecto(self):
 		if self.fo_status == "Em Curso":
-			projecto = frappe.get_doc({
-				"doctype": "Project",
-				"project_name": self.numero_obra,
-				"priority": "Medium",
-				"status": "Open",
-				"expected_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1) ,
-				"expected_end_date": self.data_previsao_saida ,
-				"is_active": "Yes",
-				"project_type": "Internal",
-				"customer": self.nome_cliente
-			})
-			projecto.insert()
-			frappe.msgprint('{0}{1}'.format("Numero da Folha de Obra criado como Projeto ", self.numero_obra))
-			#create the Tasks
+			if not frappe.get_doc("Project",self.numero_obra): 
+				projecto = frappe.get_doc({
+					"doctype": "Project",
+					"project_name": self.numero_obra,
+					"priority": "Medium",
+					"status": "Open",
+					"expected_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1) ,
+					"expected_end_date": self.data_previsao_saida ,
+					"is_active": "Yes",
+					"project_type": "Internal",
+					"customer": self.nome_cliente
+				})
+				projecto.insert()
+				frappe.msgprint('{0}{1}'.format("Numero da Folha de Obra criado como Projeto ", self.numero_obra))
+				#create the Tasks
 
-#			fo_avarias = frappe.get_doc("FO_Avarias_Cliente",self.numero_obra)
-			for num_avarias in frappe.get_all("FO_Avarias_Cliente",filters={'Parent':self.numero_obra},fields=['Parent','avcliente_descricao']):
-				if num_avarias.avcliente_descricao:
-	#			for num_avarias in fo_avarias:
+	#			fo_avarias = frappe.get_doc("FO_Avarias_Cliente",self.numero_obra)
+				for num_avarias in frappe.get_all("FO_Avarias_Cliente",filters={'Parent':self.numero_obra},fields=['Parent','avcliente_descricao']):
+					if num_avarias.avcliente_descricao:
+		#			for num_avarias in fo_avarias:
+						tarefas = frappe.get_doc({
+								"doctype": "Task",
+								"project": self.numero_obra,
+								"subject": num_avarias.avcliente_descricao,
+								"status": "Open",
+								"description": "Tarefa adicionada pelo Sistema",
+								"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
+								"exp_end_date": self.data_previsao_saida 
+
+						})
+						tarefas.insert()
+						frappe.msgprint('{0}{1}'.format(num_avarias.avcliente_descricao, " Criado como tarefa no Projecto ", self.numero_obra))
+				if self.obs_cliente:	
+					#Add OBS_Cliente to Tasks
 					tarefas = frappe.get_doc({
-							"doctype": "Task",
-							"project": self.numero_obra,
-							"subject": num_avarias.avcliente_descricao,
-							"status": "Open",
-							"description": "Tarefa adicionada pelo Sistema",
-							"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
-							"exp_end_date": self.data_previsao_saida 
+						"doctype": "Task",
+						"project": self.numero_obra,
+						"subject": self.obs_cliente,
+						"status": "Open",
+						"description": self.obs_cliente,
+						"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
+						"exp_end_date": self.data_previsao_saida 
 
 					})
 					tarefas.insert()
-					frappe.msgprint('{0}{1}'.format(num_avarias.avcliente_descricao, " Criado como tarefa no Projecto ", self.numero_obra))
-			if self.obs_cliente:	
-				#Add OBS_Cliente to Tasks
-				tarefas = frappe.get_doc({
-					"doctype": "Task",
-					"project": self.numero_obra,
-					"subject": self.obs_cliente,
-					"status": "Open",
-					"description": self.obs_cliente,
-					"exp_start_date": get_datetime(frappe.utils.now()) + timedelta(days=1),
-					"exp_end_date": self.data_previsao_saida 
-
-				})
-				tarefas.insert()
 			#Set OR para Fechado
 			ordemreparacao = frappe.get_doc("Ordem de Reparacao",self.ordem_reparacao)			
 			ordemreparacao.or_status = "Fechada"
