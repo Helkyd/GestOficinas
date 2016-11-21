@@ -33,6 +33,7 @@ frappe.ui.form.on('Ordem de Reparacao', {
 			cur_frm.toggle_enable("or_kms_entrada",false)
 			cur_frm.toggle_enable("or_date",false)
 			cur_frm.toggle_enable("or_previsao_entrega",false)
+			cur_frm.toggle_enable("or_nivel_combustivel",false)
 
 			//Acessorios
 			cur_frm.toggle_enable("or_macaco",false)
@@ -47,18 +48,18 @@ frappe.ui.form.on('Ordem de Reparacao', {
 			cur_frm.toggle_enable("or_radio",false)
 			cur_frm.toggle_enable("or_drive_cd",false)
 			cur_frm.toggle_enable("or_esqueiro",false)
-			cur_frm.toggle_enable("or_retrovisor",false)
+			cur_frm.toggle_enable("retrovisor",false)
 			cur_frm.toggle_enable("or_tapetes",false)
 			cur_frm.toggle_enable("or_antena",false)
 			cur_frm.toggle_enable("or_retrovisor_esquerdo",false)
 			cur_frm.toggle_enable("or_retrovisor_direito",false)
 			cur_frm.toggle_enable("or_tampao_combustivel",false)
-			cur_frm.toggle_enable("or_escovas_limpa_parabrisas",false)
-			cur_frm.toggle_enable("or_escovas_limpa_parabrisas_traseiro",false)
+			cur_frm.toggle_enable("or_limpa_parabrisas",false)
+			cur_frm.toggle_enable("or_limpa_parabrisas_traseiro",false)
 
 
 			cur_frm.toggle_enable("or_avarias_corrigir",false)
-
+			cur_frm.toggle_enable("or_obs_cliente",false)
 
 			cur_frm.toggle_enable("numero_ordem",false)
 			frm.set_df_property("or_status","options","Em Curso\nFechada")

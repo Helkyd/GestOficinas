@@ -65,6 +65,12 @@ frappe.ui.form.on('Ordem de Reparacao', {
 			frm.set_df_property("or_status","options","Em Curso\nFechada")
 		}
 
+		cur_frm.page.set_secondary_action(__("Folha de Obra"), function() {
+
+			//abre Folha de Obra
+		}, "");
+
+
 
 
 	}
