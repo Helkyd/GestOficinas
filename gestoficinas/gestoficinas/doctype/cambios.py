@@ -1,12 +1,21 @@
 # Copyright (c) 2016, Helio de Jesus and contributors
 # For license information, please see license.txt
 
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+import frappe
+from frappe import utils 
+import datetime 
+from frappe.model.naming import make_autoname
+import frappe.async
+from frappe.utils import cstr
+from frappe import _
 
 from lxml import html
 import requests
 
 
-
+@frappe.whitelist()
 def cambios(fonte):
 
 	if fonte == 'BNA':
@@ -37,5 +46,7 @@ def cambios(fonte):
 		print moeda
 		print moedacompra
 		print moedavenda
+
+	return moedacompra, moedavenda
 
 

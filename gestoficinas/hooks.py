@@ -70,13 +70,16 @@ notification_config = "gestoficinas.notifications.get_notification_config"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 #	}
-# }
+	"Sales Order": {
+		"validate": "gestoficinas.gestoficinas.validations.sales_order.validate",
+	},
+}
 
 # Scheduled Tasks
 # ---------------
