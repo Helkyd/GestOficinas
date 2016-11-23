@@ -22,10 +22,10 @@ cur_frm.cscript.custom_validate = function(doc, dt, dn) {
     if (doc.docstatus == 0){
 
 		if (frappe.datetime.get_day_diff(new Date(), frappe.datetime.str_to_obj(doc.transaction_date)) > 0 && doc.order_type == "Sales") {
+			//Due to normal clients this have to be removed for now....
+			//validated = false;
 
-			validated = false;
-
-			msgprint("Data de Ordem de Venda nao pode ser anterior de hoje"); // or any other message you want..
+			//msgprint("Data de Ordem de Venda nao pode ser anterior de hoje"); // or any other message you want..
 
 		}
 
