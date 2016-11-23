@@ -49,7 +49,7 @@ frappe.ui.form.on('Folha de Obras', {
 			
 			frm.add_custom_button(__("Projecto"), function() {
 				frappe.route_options = {"project_name": cur_frm.doc.name}
-				frappe.set_route("List", "Projects");
+				frappe.set_route("List", "Project");
 			}, "icon-list", true);
 
 		}

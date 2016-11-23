@@ -103,6 +103,7 @@ frappe.ui.form.on('Folha de Obras','fo_status',function(frm,cdt,cdn){
 		//Verifica se o Projecto ja esta completed.
 		if (prj.responseJSON.message == "Completed"){
 			//Pode fechar a Obra ...
+			show_alert("Folha de Obra pode ser fechada !!!",3)
 		}else{
 			//Ooooopppssss still oopen
 			alert("O Projecto " + cur_frm.doc.numero_obra + " ainda nao esta fechado ou concluido.\nPor favor rever se as tarefas alocadas estao completadas.")
