@@ -80,6 +80,10 @@ doc_events = {
 	"Sales Order": {
 		"validate": "gestoficinas.gestoficinas.validations.sales_order.validate",
 	},
+	"Sales Invoice": {
+		"validate": "gestoficinas.gestoficinas.validations.sales_invoice.validate",
+	},
+
 }
 
 # Scheduled Tasks

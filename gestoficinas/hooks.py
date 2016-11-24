@@ -83,6 +83,9 @@ doc_events = {
 	"Sales Invoice": {
 		"validate": "gestoficinas.gestoficinas.validations.sales_invoice.validate",
 	},
+	"Project": {
+		"validate": "gestoficinas.gestoficinas.validations.project.validate",
+	},
 
 }
 
