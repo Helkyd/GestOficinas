@@ -43,9 +43,18 @@ frappe.ui.form.on('Folha de Obras', {
 			cur_frm.toggle_enable("ordem_reparacao",false)
 			}
 
+		}else if (cur_frm.doc.fo_status == 'Fechada'){
+			cur_frm.toggle_enable("ordem_reparacao",false)
+			cur_frm.toggle_enable("kms_entrada",false)
+			cur_frm.toggle_enable("kms_saida",false)
+			cur_frm.toggle_enable("avarias_cliente",false)
+			cur_frm.toggle_enable("fo_status",false)
+			cur_frm.toggle_enable("revisao_feita",false)
+			cur_frm.toggle_enable("proxima_revisao",false)
+
 		}
 
-		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal){
+		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal || cur_frm.doc.fo_status == 'Em Curso' ){
 			
 			frm.add_custom_button(__("Projecto"), function() {
 				frappe.route_options = {"project_name": cur_frm.doc.name}
@@ -102,7 +111,8 @@ frappe.ui.form.on('Folha de Obras','fo_status',function(frm,cdt,cdn){
 	}else if (cur_frm.doc.fo_status == 'Fechada'){
 		//Verifica se o Projecto ja esta completed.
 		if (prj.responseJSON.message == "Completed"){
-			//Pode fechar a Obra ...
+			//Pode fechar a Obra ... transfer the list of Material added to Material_obra
+			show_alert("Folha de Obra pode ser fechada !!!",3)
 		}else{
 			//Ooooopppssss still oopen
 			alert("O Projecto " + cur_frm.doc.numero_obra + " ainda nao esta fechado ou concluido.\nPor favor rever se as tarefas alocadas estao completadas.")

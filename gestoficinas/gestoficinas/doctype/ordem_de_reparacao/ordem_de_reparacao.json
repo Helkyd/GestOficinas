@@ -1054,7 +1054,7 @@
    "bold": 0, 
    "collapsible": 0, 
    "columns": 0, 
-   "default": "", 
+   "default": "4", 
    "fieldname": "or_tapetes", 
    "fieldtype": "Select", 
    "hidden": 0, 
@@ -1528,7 +1528,7 @@
  "issingle": 0, 
  "istable": 0, 
  "max_attachments": 0, 
- "modified": "2016-11-21 18:59:31.877852", 
+ "modified": "2016-11-24 09:55:54.931411", 
  "modified_by": "Administrator", 
  "module": "Gestoficinas", 
  "name": "Ordem de Reparacao", 
@@ -1584,5 +1584,6 @@
  "search_fields": "numero_ordem,or_nome_cliente", 
  "sort_field": "numero_ordem", 
  "sort_order": "ASC", 
+ "title_field": "numero_ordem", 
  "track_seen": 0
 }

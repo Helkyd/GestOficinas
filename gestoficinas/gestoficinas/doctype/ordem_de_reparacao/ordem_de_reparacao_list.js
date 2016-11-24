@@ -16,7 +16,7 @@ frappe.listview_settings['Ordem de Reparacao'] = {
 		
 		}
 	},
-	colwidths: {"subject": 3, "indicator": 3,"Nome do Cliente": 2},
+	colwidths: {"subject": 4, "indicator": 2,"Nome do Cliente": 2},
 
 	onload: function(listview){
 		frappe.route_options = {

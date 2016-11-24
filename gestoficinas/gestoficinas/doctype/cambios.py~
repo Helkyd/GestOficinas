@@ -47,6 +47,6 @@ def cambios(fonte):
 		print moedacompra
 		print moedavenda
 
-		return moedacompra, moedavenda
+	return moedacompra, moedavenda
 
 
