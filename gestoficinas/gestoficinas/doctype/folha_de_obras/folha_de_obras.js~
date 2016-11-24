@@ -54,8 +54,8 @@ frappe.ui.form.on('Folha de Obras', {
 
 		}
 
-		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal || cur_frm.doc.fo_status == 'Em Curso' ){
-			
+		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal || cur_frm.doc.fo_status == 'Fechada' ){
+			cur_frm.reload_doc()
 			frm.add_custom_button(__("Projecto"), function() {
 				frappe.route_options = {"project_name": cur_frm.doc.name}
 				frappe.set_route("List", "Project");

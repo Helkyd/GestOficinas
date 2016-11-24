@@ -15,3 +15,11 @@ class OrdemdeReparacao(Document):
 		self.numero_ordem = make_autoname('OR/' + '.#####' + './.' + 'YYYY')
 		self.name = self.numero_ordem
 	
+
+	def validate(self):
+		print "tamanho ", len(self.or_avarias_corrigir)
+		
+		if self.or_avarias_corrigir[0].avcliente_descricao == None:
+			validation = False
+			frappe.msgprint("Inserir pelo menos uma Descrição da avaria", raise_exception = 1)
+

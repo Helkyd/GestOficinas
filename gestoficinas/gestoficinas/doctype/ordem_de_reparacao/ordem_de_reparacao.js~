@@ -67,9 +67,9 @@ frappe.ui.form.on('Ordem de Reparacao', {
 
 
 		if (!cur_frm.doc.__islocal){
-			
+			cur_frm.reload_doc()
 			frm.add_custom_button(__("Folha de Obras"), function() {
-				frappe.route_options = {"ordem_reparacao": "FO/00017/2016"} //cur_frm.doc.name}
+				frappe.route_options = {"ordem_reparacao": cur_frm.doc.name}
 				frappe.set_route("List", "Folha de Obras");
 			}, "icon-list", true);
 

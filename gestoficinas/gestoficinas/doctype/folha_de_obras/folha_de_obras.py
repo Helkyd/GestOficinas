@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 # Copyright (c) 2016, Helio de Jesus and contributors
 # For license information, please see license.txt
 
@@ -26,7 +26,12 @@ class FolhadeObras(Document):
 
 	def criar_projecto(self):
 		if self.fo_status == "Em Curso":
-			if not frappe.get_doc("Project",self.numero_obra): 
+			print "Verifica o Project ...."
+			criarprojeto = False
+			if frappe.db.sql("""select name from `tabProject` WHERE name =%s """,(self.numero_obra), as_dict=False) ==():
+				criarprojeto = True
+			if criarprojeto == True: #not frappe.get_doc("Project",self.numero_obra): 
+				print "Criar Projeto ...."
 				projecto = frappe.get_doc({
 					"doctype": "Project",
 					"project_name": self.numero_obra,

@@ -55,8 +55,9 @@ frappe.ui.form.on('Folha de Obras', {
 		}
 
 		if (cur_frm.doc.fo_status == 'Em Curso' && !cur_frm.doc.__islocal || cur_frm.doc.fo_status == 'Fechada' ){
-			
+
 			frm.add_custom_button(__("Projecto"), function() {
+				cur_frm.reload_doc()
 				frappe.route_options = {"project_name": cur_frm.doc.name}
 				frappe.set_route("List", "Project");
 			}, "icon-list", true);
