@@ -23,14 +23,14 @@ def cambios(fonte):
 		print page
 		if page.status_code == 200:
 			tree = html.fromstring(page.content)
-			print tree
+
 			i = 2
 			for tr in tree.xpath("//tr"):
-				print tree.xpath('//tr['+ str(i) + ']') == []
+				#print tree.xpath('//tr['+ str(i) + ']') == []
 
 				if tree.xpath('//tr['+ str(i) + ']') != []:
 					print "meoda ", tr.xpath('//tr['+ str(i) +']/td[1]/text()')[0]
-					print tr.xpath(tr.xpath('//tr['+ str(i) +']/td[1]/text()')[0].strip()) == '  USD'
+					#print tr.xpath(tr.xpath('//tr['+ str(i) +']/td[1]/text()')[0].strip()) == '  USD'
 					if tr.xpath('//tr['+ str(i) +']/td[1]/text()')[0] == 'USD': 
 						moeda= tr.xpath('//tr['+ str(i) +']/td[1]/text()')[0]     #moeda USD
 						moedacompra= tr.xpath('//tr['+ str(i) +']/td[2]/text()')[0]	#Compra
@@ -45,6 +45,7 @@ def cambios(fonte):
 		if page.status_code == 200:
 			page= requests.get('http://www.bfa.ao/Servicos/Cambios/Divisas.aspx?idl=1')
 			tree = html.fromstring(page.content)
+			i = 2 
 			for tr in tree.xpath("//tr"):	
 
 				if tr.xpath('//*[@id="usd"]/text()')[0].strip()=='USD': 
