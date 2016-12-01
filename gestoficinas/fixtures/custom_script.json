@@ -3,18 +3,18 @@
   "docstatus": 0, 
   "doctype": "Custom Script", 
   "dt": "Sales Order", 
-  "modified": "2016-11-25 19:05:16.837509", 
+  "modified": "2016-11-30 18:31:12.018425", 
   "name": "Sales Order-Client", 
-  "script": "taxavenda= cur_frm.call({method:\"gestoficinas.gestoficinas.doctype.cambios.cambios\",args:{\"fonte\":\"BNA\"}})\n\n\nfrappe.ui.form.on(\"Sales Order\",\"cambio_bna\", function(frm,cdt,cdn) {\n\n\t\tfrappe.call({\n\t\t\tasync: true,\n\t\t\tmethod: \"gestoficinas.gestoficinas.doctype.cambios.cambios\",\n\t\t\targs: {\n\t\t\t\t\"fonte\":\"BNA\"\t\t\t\t\n\t\t\t},\n\t\t\tcallback: function(r) {\n\t\t\t\ttaxavenda = r.message\n\t\t\t\tcur_frm.doc.taxa_cambio = taxavenda[1]\n\t\t\t\trefresh_field(\"taxa_cambio\")\n\t\t\t}\n\t\t});\n\n\n\n});\n\n\ncur_frm.cscript.custom_validate = function(doc, dt, dn) {\n\n    if (doc.docstatus == 0){\n\n\t\tif (frappe.datetime.get_day_diff(new Date(), frappe.datetime.str_to_obj(doc.transaction_date)) > 0 && doc.order_type == \"Sales\") {\n\t\t\t//Due to normal clients this have to be removed for now....\n\t\t\t//validated = false;\n\n\t\t\t//msgprint(\"Data de Ordem de Venda nao pode ser anterior de hoje\"); // or any other message you want..\n\n\t\t}\n\n\t}\t\n\n};", 
+  "script": "taxavenda= cur_frm.call({method:\"gestoficinas.gestoficinas.doctype.cambios.cambios\",args:{\"fonte\":\"BNA\"}})\n\nfrappe.ui.form.on(\"Sales Order\", {\n\trefresh: function(frm) {\n\t\tcur_frm.toggle_enable(\"contra_valor\",false)\n\t}\n});\n\nfrappe.ui.form.on(\"Sales Order\",\"cambio_bna\", function(frm,cdt,cdn) {\n\n\t\tfrappe.call({\n\t\t\tasync: true,\n\t\t\tmethod: \"gestoficinas.gestoficinas.doctype.cambios.cambios\",\n\t\t\targs: {\n\t\t\t\t\"fonte\":\"BNA\"\t\t\t\t\n\t\t\t},\n\t\t\tcallback: function(r) {\n\t\t\t\ttaxavenda = r.message\n\t\t\t\tcur_frm.doc.taxa_cambio = taxavenda[1]\n\t\t\t\trefresh_field(\"taxa_cambio\")\n\t\t\t}\n\t\t});\n\n\n\n});\n\n\ncur_frm.cscript.custom_validate = function(doc, dt, dn) {\n\n    if (doc.docstatus == 0){\n\n\t\tif (frappe.datetime.get_day_diff(new Date(), frappe.datetime.str_to_obj(doc.transaction_date)) > 0 && doc.order_type == \"Sales\") {\n\t\t\t//Due to normal clients this have to be removed for now....\n\t\t\t//validated = false;\n\n\t\t\t//msgprint(\"Data de Ordem de Venda nao pode ser anterior de hoje\"); // or any other message you want..\n\n\t\t}\n\n\t}\t\n\n};", 
   "script_type": "Client"
  }, 
  {
   "docstatus": 0, 
   "doctype": "Custom Script", 
   "dt": "Sales Invoice", 
-  "modified": "2016-11-24 05:21:23.096170", 
+  "modified": "2016-11-30 18:31:41.958354", 
   "name": "Sales Invoice-Client", 
-  "script": "frappe.ui.form.on(\"Sales Invoice\",\"cambio_bna\", function(frm,cdt,cdn) {\n\n\tfrappe.call({\n\t\tasync: false,\n\t\tmethod: \"gestoficinas.gestoficinas.doctype.cambios.cambios\",\n\t\targs: {\n\t\t\t\"fonte\":\"BNA\"\t\t\t\t\n\t\t},\n\t\tcallback: function(r) {\n\t\t\ttaxavenda = r.message\n\t\t\tcur_frm.doc.taxa_cambio = taxavenda[1]\n\t\t\trefresh_field(\"taxa_cambio\")\n\t\t}\n\t});\n\n\n});\n\n", 
+  "script": "frappe.ui.form.on(\"Sales Invoice\", {\n\trefresh: function(frm) {\n\t\tcur_frm.toggle_enable(\"contra_valor\",false)\n\t}\n});\n\nfrappe.ui.form.on(\"Sales Invoice\",\"cambio_bna\", function(frm,cdt,cdn) {\n\n\tfrappe.call({\n\t\tasync: false,\n\t\tmethod: \"gestoficinas.gestoficinas.doctype.cambios.cambios\",\n\t\targs: {\n\t\t\t\"fonte\":\"BNA\"\t\t\t\t\n\t\t},\n\t\tcallback: function(r) {\n\t\t\ttaxavenda = r.message\n\t\t\tcur_frm.doc.taxa_cambio = taxavenda[1]\n\t\t\trefresh_field(\"taxa_cambio\")\n\t\t}\n\t});\n\n\n});\n\n", 
   "script_type": "Client"
  }
 ]
