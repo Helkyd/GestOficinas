@@ -15,7 +15,7 @@ def get_data():
 		{
 		   "_doctype": "Folha de Obras", 
 		   "color": "grey", 
-		   "icon": "octicon octicon-file-directory", 
+		   "icon": "octicon octicon-checklist", 
 		   "label": "Folha de Obras", 
 		   "link": "List/Folha de Obras", 
 		   "module_name": "Folha de Obras", 
@@ -24,7 +24,7 @@ def get_data():
 		 {
 		   "_doctype": "Ordem de Reparacao", 
 		   "color": "grey", 
-		   "icon": "octicon octicon-file-directory", 
+		   "icon": "octicon octicon-tools", 
 		   "label": "Ordem de Reparacao", 
 		   "link": "List/Ordem de Reparacao", 
 		   "module_name": "Ordem de Reparacao", 
