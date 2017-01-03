@@ -12,7 +12,9 @@ class OrdemdeReparacao(Document):
 	
 
 	def autoname(self):
-		self.numero_ordem = make_autoname('OR/' + '.#####' + './.' + 'YYYY')
+		#self.numero_ordem = make_autoname('OR/' + '.#####' + './.' + 'YYYY')
+		self.numero_ordem = make_autoname('OR/' + '.YYYY./.#####')
+		#self.numero_ordem = make_autoname('OR/' + '.YYYY.#####')
 		self.name = self.numero_ordem
 	
 
