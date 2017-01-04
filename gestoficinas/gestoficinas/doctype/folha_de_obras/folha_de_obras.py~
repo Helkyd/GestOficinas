@@ -14,7 +14,9 @@ from frappe.utils import cstr, get_datetime, getdate, cint, get_datetime_str
 class FolhadeObras(Document):
 
 	def autoname(self):
-		self.numero_obra = make_autoname('FO/' + '.#####' + './.' + 'YYYY')
+
+		#self.numero_obra = make_autoname('FO/' + '.#####' + './.' + 'YYYY')
+		self.numero_obra = make_autoname('FO/' + '.YYYY./.#####')
 		self.name = self.numero_obra
 
 
@@ -27,7 +29,10 @@ class FolhadeObras(Document):
 	def criar_projecto(self):
 		if self.fo_status == "Em Curso":
 			print "Verifica o Project ...."
-			if not frappe.get_doc("Project",self.numero_obra): 
+			criarprojeto = False
+			if frappe.db.sql("""select name from `tabProject` WHERE name =%s """,(self.numero_obra), as_dict=False) ==():
+				criarprojeto = True
+			if criarprojeto == True: #not frappe.get_doc("Project",self.numero_obra): 
 				print "Criar Projeto ...."
 				projecto = frappe.get_doc({
 					"doctype": "Project",

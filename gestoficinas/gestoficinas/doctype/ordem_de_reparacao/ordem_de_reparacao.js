@@ -19,6 +19,8 @@ frappe.ui.form.on('Ordem de Reparacao', {
 frappe.ui.form.on('Ordem de Reparacao', {
 	refresh: function(frm) {
 
+		show_alert(frm.doc.docstatus,2)
+
 		if (cur_frm.doc.or_status == 'Em Curso'){
 			cur_frm.toggle_enable("or_operador",false)
 			cur_frm.toggle_enable("or_marca_veiculo",false)
@@ -69,6 +71,7 @@ frappe.ui.form.on('Ordem de Reparacao', {
 		if (!cur_frm.doc.__islocal){
 
 			frm.add_custom_button(__("Folha de Obras"), function() {
+				cur_frm.reload_doc()
 				cur_frm.reload_doc()
 				frappe.route_options = {"ordem_reparacao": cur_frm.doc.name}
 				frappe.set_route("List", "Folha de Obras");

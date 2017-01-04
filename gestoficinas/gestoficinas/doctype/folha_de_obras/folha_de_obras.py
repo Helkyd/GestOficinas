@@ -14,7 +14,9 @@ from frappe.utils import cstr, get_datetime, getdate, cint, get_datetime_str
 class FolhadeObras(Document):
 
 	def autoname(self):
-		self.numero_obra = make_autoname('FO/' + '.#####' + './.' + 'YYYY')
+
+		#self.numero_obra = make_autoname('FO/' + '.#####' + './.' + 'YYYY')
+		self.numero_obra = make_autoname('FO/' + '.YYYY./.#####')
 		self.name = self.numero_obra
 
 
@@ -124,7 +126,7 @@ def get_projecto_status(prj):
 	return frappe.db.sql("""select status from `tabProject` WHERE name =%s """,(prj), as_dict=False)
 
 @frappe.whitelist()
-def get_avaria_cliente(frm,cdt):
+def get_avaria_cliente(cdt):
 	print frappe.get_all("Avarias_Cliente",filters={'Parent':cdt},fields=['Parent','avcliente_descricao'])	
 	return frappe.get_all("Avarias_Cliente",filters={'Parent':cdt},fields=['Parent','avcliente_descricao'])
 

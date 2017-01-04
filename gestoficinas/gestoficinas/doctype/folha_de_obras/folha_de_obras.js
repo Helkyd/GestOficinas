@@ -11,12 +11,20 @@ frappe.ui.form.on('Folha de Obras', {
 		if (cur_frm.doc.numero_obra != undefined){
 			prj= cur_frm.call({method:"get_projecto_status",args:{"prj":cur_frm.doc.numero_obra}})
 		}
+
+		if (cur_frm.doc.ordem_reparacao != undefined){
+			ordens1= cur_frm.call({method:"get_avaria_cliente",args:{"cdt":cur_frm.doc.ordem_reparacao}})
+		}
 	}
 		
 });
 
 frappe.ui.form.on('Folha de Obras', {
 	refresh: function(frm) {
+
+		show_alert(frm.doc.docstatus,2)
+		show_alert(cur_frm.doc.fo_status,2)
+		show_alert(frm.docname.substring(0,3),2)
 
 		cur_frm.toggle_enable("data_abertura",false)
 		cur_frm.toggle_enable("fo_operador",false)
@@ -62,8 +70,22 @@ frappe.ui.form.on('Folha de Obras', {
 				frappe.set_route("List", "Project");
 			}, "icon-list", true);
 
+			frm.add_custom_button(__("Proformas"), function() {
+				cur_frm.reload_doc()
+				frappe.route_options = {"project": cur_frm.doc.name, "customer": cur_frm.doc.nome_cliente}
+				frappe.set_route("List", "Sales Order");
+			}, "icon-list", true);
+
+
 		}
 
+		//Assuming already saved now will criate the Projet so Sales Order can also be created with 1 record.
+
+		if (frm.doc.docstatus ==0 && cur_frm.doc.fo_status == 'Aberta' && frm.docname.substring(0,3) !="New" && frm.docname.substring(0,3) !="Nov") {
+
+			cur_frm.doc.fo_status = "Em Curso"	
+			cur_frm.save() 
+		}
 
 
 	}
@@ -78,7 +100,17 @@ frappe.ui.form.on('Folha de Obras','ordem_reparacao',function(frm,cdt,cdn){
 
 		//Enters Avarias reported by client to serve as Tasks
 
-		if (ordens != undefined){
+		if (ordens1 != undefined){
+			for (var x = 0; x < ordens1.responseJSON.message.length;x++){
+				if (ordens1.responseJSON.message[x].Parent == cur_frm.doc.ordem_reparacao){
+					av = frm.add_child("avarias_cliente")
+					av.avcliente_descricao = ordens1.responseJSON.message[x].avcliente_descricao
+
+				}
+			}
+			frm.refresh_field("avarias_cliente")
+
+		}else if (ordens != undefined){
 			for (var x = 0; x < ordens.responseJSON.message.length;x++){
 				if (ordens.responseJSON.message[x].Parent == cur_frm.doc.ordem_reparacao){
 					av = frm.add_child("avarias_cliente")
