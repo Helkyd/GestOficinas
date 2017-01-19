@@ -22,9 +22,6 @@ frappe.ui.form.on('Folha de Obras', {
 frappe.ui.form.on('Folha de Obras', {
 	refresh: function(frm) {
 
-		show_alert(frm.doc.docstatus,2)
-		show_alert(cur_frm.doc.fo_status,2)
-		show_alert(frm.docname.substring(0,3),2)
 
 		cur_frm.toggle_enable("data_abertura",false)
 		cur_frm.toggle_enable("fo_operador",false)
@@ -68,18 +65,18 @@ frappe.ui.form.on('Folha de Obras', {
 				cur_frm.reload_doc()
 				frappe.route_options = {"project_name": cur_frm.doc.name}
 				frappe.set_route("List", "Project");
-			}, "icon-list", true);
+			}, "Criar", true);
 
 			frm.add_custom_button(__("Proformas"), function() {
 				cur_frm.reload_doc()
 				frappe.route_options = {"project": cur_frm.doc.name, "customer": cur_frm.doc.nome_cliente}
 				frappe.set_route("List", "Sales Order");
-			}, "icon-list", true);
+			}, "Criar", true);
 
 
 		}
 
-		//Assuming already saved now will criate the Projet so Sales Order can also be created with 1 record.
+		//Assuming already saved now will criate the Projet so Sales Order can also be created.
 
 		if (frm.doc.docstatus ==0 && cur_frm.doc.fo_status == 'Aberta' && frm.docname.substring(0,3) !="New" && frm.docname.substring(0,3) !="Nov") {
 

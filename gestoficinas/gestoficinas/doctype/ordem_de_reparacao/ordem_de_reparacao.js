@@ -19,7 +19,7 @@ frappe.ui.form.on('Ordem de Reparacao', {
 frappe.ui.form.on('Ordem de Reparacao', {
 	refresh: function(frm) {
 
-		show_alert(frm.doc.docstatus,2)
+
 
 		if (cur_frm.doc.or_status == 'Em Curso'){
 			cur_frm.toggle_enable("or_operador",false)
@@ -73,9 +73,18 @@ frappe.ui.form.on('Ordem de Reparacao', {
 			frm.add_custom_button(__("Folha de Obras"), function() {
 				cur_frm.reload_doc()
 				cur_frm.reload_doc()
-				frappe.route_options = {"ordem_reparacao": cur_frm.doc.name}
+				frappe.route_options = {"ordem_reparacao": cur_frm.doc.name,"nome_cliente":cur_frm.doc.or_nome_cliente}
 				frappe.set_route("List", "Folha de Obras");
-			}, "icon-list", true);
+			});
+
+
+//			frm.add_custom_button(__("Folha de Obras"), function() {
+//				cur_frm.reload_doc()
+//				cur_frm.reload_doc()
+//				frappe.route_options = {"ordem_reparacao": cur_frm.doc.name,"nome_cliente":cur_frm.doc.or_nome_cliente}
+//				frappe.set_route("List", "Folha de Obras");
+//			}, "icon-list", true);
+
 
 		}
 

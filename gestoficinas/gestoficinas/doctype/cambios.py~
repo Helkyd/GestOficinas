@@ -20,7 +20,7 @@ def cambios(fonte):
 
 	if fonte == 'BNA':
 		page=requests.get('http://www.bna.ao/Servicos/cambios_table.aspx?idl=1')
-		print page
+		#print page
 		if page.status_code == 200:
 			tree = html.fromstring(page.content)
 
